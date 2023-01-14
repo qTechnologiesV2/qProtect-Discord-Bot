@@ -23,7 +23,7 @@ if (!fs.existsSync("./tmp")) {
 }
 
 if (token == "") {
-    client.log("Missing bot token. Please enter your bot token.")
+    client.log("Missing bot token. Please enter your bot's token.")
     token = prompt("Token =>")
     const data = {
         "token": `${token}`,
@@ -31,18 +31,18 @@ if (token == "") {
     };
 
     fs.writeFileSync('./resources/config.json', JSON.stringify(data));
-    client.log("Setted up your bot's token!")
+    client.log("Token has been set!")
 }
 
 if (clientId == "") {
-    client.log("Missing bot token. Please enter your bot clientId.")
+    client.log("Missing bot token. Please enter your bot's clientId.")
     clientId = prompt("ClientID =>")
     const data = {
         "token": `${token}`,
         "clientId": `${clientId}`
     };
     fs.writeFileSync('./resources/config.json', JSON.stringify(data));
-    client.log("Setted up your bot's clientId!")
+    client.log("ClientId has been set!")
 }
 
 client.token = token;
