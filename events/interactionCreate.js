@@ -1,6 +1,8 @@
+const { EmbedBuilder } = require(`@discordjs/builders`);
+
 module.exports = {
     name: `interactionCreate`,
-    async execute(interaction, client)  {
+    async execute(interaction, client) {
         if (!interaction.isCommand()) return;
 
         // console.log(interaction.commandName)
@@ -16,15 +18,20 @@ module.exports = {
             await command.execute(interaction);
         } catch (error) {
             console.log(error);
-            await interaction.reply({content: `Oh no an error!`, ephemeral: true});
+
+            const embed = new EmbedBuilder()
+                .setColor(0x210ecc)
+                .setDescription("Oh no something went wrong!")
+
+            await interaction.reply({ embed: [embed], ephemeral: true });
         }
 
 
 
-    
 
 
 
 
-    } 
+
+    }
 }
