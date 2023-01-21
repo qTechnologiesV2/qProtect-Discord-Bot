@@ -22,13 +22,23 @@ async function download(url, filename) {
     })
 }
 
-async function obfuscate() {
+async function obfuscate(config) {
+    if (config) {
+        return new Promise(resolve => {
+            var child = exec('java -jar QProtect.jar --config ./tmp/config.yml');
+            child.on('close', function (code) {
+                resolve();
+            });
+        })
+    }
+
     return new Promise(resolve => {
         var child = exec('java -jar QProtect.jar --config config.yml');
         child.on('close', function (code) {
             resolve();
         });
     })
+
 }
 
 let console = ``;
@@ -56,7 +66,11 @@ module.exports = {
         .addAttachmentOption((option) => option
             .setRequired(true)
             .setName(`jar`)
-            .setDescription(`The jar file you wish to obfuscate.`)),
+            .setDescription(`The jar file you wish to obfuscate.`))
+        .addAttachmentOption((option) => option
+            .setName("config")
+            .setDescription("Your custom Qprotect Lite config.")
+        ),
     async execute(interaction, client) {
 
         await interaction.deferReply({
@@ -79,13 +93,20 @@ module.exports = {
 
 
         const file = interaction.options.getAttachment('jar')
+        const config = interaction.options.getAttachment('config')
 
         discord_log(`Downloading File...`, interaction);
         await download(file.url, `input.jar`)
         discord_log(`Downloaded File!`, interaction);
 
+        if (config) {
+            discord_log(`Downloading Config...`, interaction);
+            await download(config.url, `config.yml`)
+            discord_log(`Downloaded Config!`, interaction);
+        }
+
         discord_log(`Obfuscating File...`, interaction);
-        await obfuscate()
+        await obfuscate(config)
         discord_log(`Obfuscated File!`, interaction);
 
         await interaction.editReply({ files: [`./tmp/output.jar`] });
@@ -95,6 +116,9 @@ module.exports = {
         try {
             fs.unlinkSync(`./tmp/input.jar`);
             fs.unlinkSync(`./tmp/output.jar`);
+            if (config) {
+                fs.unlinkSync(`./tmp/config.yml`);
+            }
 
             discord_log(`Deleted Files!`, interaction);
         } catch (err) {

@@ -1,6 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder } = require(`@discordjs/builders`);
-const fs = require(`fs`);
-
 
 module.exports = {
     name: `help`,
@@ -12,7 +10,7 @@ module.exports = {
 
         embed.setColor(0x210ecc)
             .setTitle("QProtect Bot | Support")
-            .setDescription("> QProtect bot is a free open srouce discord bot created by aSwitch to make obfuscating files easiler.")
+            .setDescription("> QProtect bot is a free open source discord bot created by aSwitch to make obfuscating files easier.")
 
             .addFields({ name: "Bot Support", value: "> [Click Here](https://discord.gg/A9WnStj8Ha)", inline: true })
             .addFields({ name: "QProtect Support", value: "> [Click Here](https://discord.gg/PYwYGxVJcb)", inline: true })

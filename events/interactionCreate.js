@@ -18,20 +18,8 @@ module.exports = {
             await command.execute(interaction);
         } catch (error) {
             console.log(error);
-
-            const embed = new EmbedBuilder()
-                .setColor(0x210ecc)
-                .setDescription("Oh no something went wrong!")
-
-            await interaction.reply({ embed: [embed], ephemeral: true });
+            // await interaction.reply({ context: "Oh no something went wrong!", ephemeral: true });
         }
-
-
-
-
-
-
-
 
     }
 }
