@@ -2,7 +2,7 @@
 A discord bot to easily obfuscate your jar files with qProtect Lite
 
 # How to use
-https://www.youtube.com/watch?v=MbDcKCY1gtU
+https://youtu.be/xkB51NLx0Eo
 
 # How to setup
 ```
