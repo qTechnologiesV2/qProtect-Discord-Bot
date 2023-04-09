@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require(`@discordjs/builders`);
 const https = require(`https`);
-const exec = require('child_process').exec;
+const { exec } = require('child_process');
 const fs = require(`fs`);
 
 const YAML = require('yaml')
@@ -193,14 +193,10 @@ module.exports = {
         await obfuscate(config)
         discord_log(`Obfuscated File!`, interaction);
 
-
-
         /**
          * Sending the obfuscated file into the chat
          */
         await interaction.editReply({ files: [`./tmp/output.jar`] });
-
-
 
         /**
          * Deleting all tmp files

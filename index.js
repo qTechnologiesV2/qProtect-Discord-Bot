@@ -15,6 +15,22 @@ client.log = (message) => {
     console.log(`[QProtect]: ${message}`);
 }
 
+/**
+ * Checks for a valid config containing both the token and client id
+ */
+
+if (!token || !clientId) {
+    client.log("Detected an invalid config file.")
+    client.log("Fixing ./resources/config.yml...")
+    const data = {
+        "token": "",
+        "clientId": ""
+    };
+    fs.writeFileSync('./resources/config.json', JSON.stringify(data));
+    client.log("Fixed ./resources/config.yml")
+    return;
+}
+
 // Creating tmp folder if it doesnt exist.
 if (!fs.existsSync("./tmp")) {
     client.log("Creating tmp folder...")
@@ -22,6 +38,7 @@ if (!fs.existsSync("./tmp")) {
     client.log("Created tmp folder!")
 }
 
+// If the token is misisng, it will request it
 if (token == "") {
     client.log("Missing bot token. Please enter your bot's token.")
     token = prompt("Token =>")
@@ -34,9 +51,10 @@ if (token == "") {
     client.log("Token has been set!")
 }
 
+// If the client is misisng, it will request it
 if (clientId == "") {
-    client.log("Missing bot token. Please enter your bot's clientId.")
-    clientId = prompt("ClientID =>")
+    client.log("Missing client Id. Please enter your bot's client Id.")
+    clientId = prompt("Client ID =>")
     const data = {
         "token": `${token}`,
         "clientId": `${clientId}`

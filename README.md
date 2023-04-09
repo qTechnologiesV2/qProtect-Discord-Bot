@@ -1,16 +1,25 @@
 # qProtect-Discord-Bot
-A discord bot to easily obfuscate your jar files with qProtect Lite
 
-# How to use
+qProtect-Discord-Bot is a discord bot designed to obfuscate your jar files with qProtect Lite, a lightweight obfuscator for Java bytecode.
+
+## How to use
+
 https://youtu.be/xkB51NLx0Eo
 
-# How to setup
+## Requirements
+
+To use qProtect-Discord-Bot, you will need Java 8 and Node v14 or higher installed on your system.
+
+## How to set up
+
+To set up qProtect-Discord-Bot, simply run the following commands in your terminal:
 ```
 npm i
 node index.js
 ```
 
-# Useful links
+## Useful links
+
 - Bot Support: https://discord.gg/xfppERhApX
 - QProtect's Discord: https://discord.gg/PYwYGxVJcb
 - QProtect's Website: https://mdma.dev/
