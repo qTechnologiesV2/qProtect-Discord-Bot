@@ -22,4 +22,4 @@ node index.js
 
 - Bot Support: https://discord.gg/xfppERhApX
 - QProtect's Discord: https://discord.gg/PYwYGxVJcb
-- QProtect's Website: https://mdma.dev/
+- QProtect's Website: [https://mdma.dev/](https://mdma.dev/?referrer=N2E6R)
