@@ -28,7 +28,7 @@ async function download(url, filename) {
 async function obfuscate(config) {
     if (config) {
         return new Promise(resolve => {
-            var child = exec('java -jar QProtect.jar --config ./tmp/config.yml');
+            var child = exec('java -jar QProtect.jar --config ./tmp/config.toml --input ./tmp/input.jar --output ./tmp/output.jar');
             child.on('close', function (code) {
                 resolve();
             });
@@ -36,7 +36,7 @@ async function obfuscate(config) {
     }
 
     return new Promise(resolve => {
-        var child = exec('java -jar QProtect.jar --config config.yml');
+        var child = exec('java -jar QProtect.jar --config config.toml --input ./tmp/input.jar --output ./tmp/output.jar');
         child.on('close', function (code) {
             resolve();
         });
@@ -73,8 +73,8 @@ function delete_tmp_files(interaction) {
             fs.unlinkSync(`./tmp/output.jar`);
         }
 
-        if (fs.existsSync(`./tmp/config.yml`)) {
-            fs.unlinkSync(`./tmp/config.yml`);
+        if (fs.existsSync(`./tmp/config.toml`)) {
+            fs.unlinkSync(`./tmp/config.toml`);
         }
     } catch (err) {
         console.log(err)
@@ -95,18 +95,19 @@ module.exports = {
             .setDescription(`The jar file you wish to obfuscate.`))
         .addAttachmentOption((option) => option
             .setName("config")
-            .setDescription("Your custom Qprotect Lite config.")
+            .setDescription("Your custom Qprotect config.")
         ),
     async execute(interaction, client) {
 
         await interaction.deferReply({
-            fetchReply: false
+            fetchReply: false,
+            ephemeral: true
         });
 
         const embed = new EmbedBuilder()
             .setTitle(`${watermark}`)
-            .setColor(0x210ecc)
-            .setFooter({ text: 'QProtect Bot by aSwitch', iconURL: `https://mdma.dev/data/assets/logo/Icon.png` })
+            .setColor(0x2a5aeb)
+            .setFooter({ text: 'QProtect Bot by aSwitch', iconURL: `https://cdn.qtechnologies.dev/icons/56805c87-1695-47d7-af57-954d83b290c6.png` })
             .setTimestamp()
 
 
@@ -120,7 +121,7 @@ module.exports = {
                 delete_tmp_files(interaction)
             } else {
                 embed.setDescription(`> Only one file can be obfuscated at a time.`)
-                await interaction.editReply({ embeds: [embed] });
+                await interaction.editReply({ embeds: [embed], ephemeral: true });
                 return;
             }
         } else {
@@ -196,7 +197,7 @@ module.exports = {
         /**
          * Sending the obfuscated file into the chat
          */
-        await interaction.editReply({ files: [`./tmp/output.jar`] });
+        await interaction.editReply({ files: [`./tmp/output.jar`], ephemeral: true });
 
         /**
          * Deleting all tmp files

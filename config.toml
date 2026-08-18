@@ -1,0 +1,232 @@
+# Input and output JAR paths
+input = "./tmp/input.jar"  # Path to the JAR file to be obfuscated.
+output = "./tmp/output.jar"  # Path to save the obfuscated JAR file.
+
+# Java runtime configuration
+# qProtect 2.0 dynamically loads the Java runtime. Set the Java version for your project here.
+# If your version is not listed, choose the next higher version.
+# Available versions: 8, 9, 11, 17, 21, 23, 25
+projectJavaVersion = 21  # The Java version your project uses (e.g., Java 8).
+
+# Android SDK configuration
+# qProtect 2.0 dynamically loads the Android runtime. Set the API level for your project here.
+# Set to 0 if you are not obfuscating an Android application.
+# If your version is not listed, choose the next higher version.
+# Available versions: 21, 28, 30, 33, 36
+androidApiLevel = 0  # The Android API level your project uses (e.g., 36).
+
+# APK Signing Configuration
+# These settings allow you to automatically sign your APK after obfuscation.
+# If `signApk` is true and keystore details are empty, a built-in test key will be used.
+signApk = false  # Set to true to enable APK signing.
+keystorePath = ""  # Path to your .jks or .keystore file.
+keystorePassword = ""  # Password for the keystore.
+keyAlias = ""  # Alias for the key.
+keyPassword = ""  # Password for the key.
+
+# Dictionary configuration for name generation
+# Options:
+# - qprotect: Default qProtect dictionary.
+# - lowercase: Generates names using only lowercase letters.
+# - uppercase: Generates names using only uppercase letters.
+# - mixed: Generates names with mixed casing.
+# - numbers: Generates names using only numeric characters (0–9).
+# - alphanumeric: Generates names using letters and numbers.
+# - lookalike_il: Uses characters that look alike (e.g., 'i' and 'l').
+# - lookalike_oO: Uses characters that look alike (e.g., 'o' and 'O').
+# - custom: Allows custom dictionary; provide the path to a text file with each entry on a new line.
+dictionary = "qprotect"  # Name generation strategy.
+customDictionaryPath = ""  # Path to the custom dictionary file (used only if `dictionary = "custom"`).
+minimumDictionaryLength = 1  # Minimum length for generated names.
+
+# Libraries used by the obfuscation process, can be .jar or a folder containing .jars
+libraries = []
+
+# Exclusions and inclusions
+# These lists determine which classes are excluded or included globally in obfuscation.
+# Transformer settings can override these.
+# - `exclusions` prevents specific classes or packages from being processed.
+# - `inclusions` ensures specific classes or packages are processed even if they match exclusions.
+#
+# Format for exclusions/inclusions:
+# 1. `com.example.MyTestClass`: Matches a specific class.
+# 2. `com.example.*`: Matches all classes in the package `com.example` (no sub-packages).
+# 3. `com.example.**`: Matches all classes in `com.example` and all its sub-packages.
+exclusions = []
+inclusions = []
+
+# Transformer-specific configurations
+# Each transformer enables specific types of obfuscation. Configure them individually.
+
+# String Encryption Configuration
+[transformerConfiguration.stringEncryptionConfig]
+enabled = true  # Enable string encryption
+splitStrings = true  # Split long strings into smaller chunks
+aesEncryption = true  # Use AES encryption for strings
+firstKeySize = 16  # Size of the first encryption key
+secondKeySize = 16  # Size of the second encryption key
+encryptAESKey = true  # Encrypt the AES decryption key
+polymorphicEncryption = true  # Use different keys for different strings
+poolEncryption = true  # Move strings into a shared pool referenced by index
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Number Encryption Configuration
+[transformerConfiguration.numberEncryptionConfig]
+enabled = true  # Enable number encryption
+encryptNumbers = true  # Encrypt numeric constants
+poolNumbers = true  # Add numbers to constant pool
+arithmetic = true  # Use arithmetic expressions for numbers
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Local Variable Transformer Configuration
+[transformerConfiguration.localsTransformerConfig]
+enabled = true  # Enable local variables obfuscation
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Reference Encryption Configuration
+[transformerConfiguration.referenceEncryptionConfig]
+enabled = true  # Enable reference encryption
+encryptMethodReferences = true  # Hide method calls
+encryptFieldReferences = true  # Hide field accesses
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Flow Transformer Configuration
+[transformerConfiguration.flowTransformerConfig]
+enabled = true  # Enable control flow obfuscation
+replaceSystemExit = true  # Obfuscate System.exit calls
+flattening = true  # Flatten control flow graph
+variableTransformer = true  # Obfuscate local variables
+blockSplitter = true  # Split basic blocks into smaller ones
+enhancedGoto = true  # Use complex goto structures
+exceptionRange = true  # Obfuscate exception ranges
+conditionMutator = true  # Mutate branch conditions
+lvtScrambler = true  # Scramble Local Variable Table
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Renamer Transformer Configuration
+[transformerConfiguration.renamerTransformerConfig]
+enabled = true  # Enable the renamer
+dumpMappings = false  # Save a map of old and new names
+renamePackages = true  # Rename packages
+randomizePackages = true  # Randomize package structure
+packageName = ""  # Base package name for renamed classes
+renameClasses = true  # Rename classes
+renameFields = true  # Rename fields
+renameMethods = true  # Rename methods
+renameLocalVariables = true  # Rename local variables
+excludedFields = []  # Fields to never rename
+excludedMethods = []  # Methods to never rename
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Debug Stripper Configuration
+[transformerConfiguration.debugStripperConfig]
+enabled = true  # Enable debug info stripping
+stripSourceDebug = true  # Strip @Debug metadata
+stripSourceFile = true  # Remove source file names
+stripLineNumbers = true  # Remove line number tables
+stripLocalVariables = true  # Remove local variable names
+stripExceptions = true  # Remove exceptions table info
+removeKotlinMetadata = true  # Strip @Metadata from Kotlin classes
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Shuffle Transformer Configuration
+[transformerConfiguration.shuffleTransformerConfig]
+enabled = true  # Enable member shuffling
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Access Transformer Configuration
+[transformerConfiguration.accessTransformerConfig]
+enabled = true  # Enable access modifier obfuscation
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Method Inliner Configuration
+[transformerConfiguration.methodInlinerConfig]
+enabled = true  # Enable method inlining
+maxPasses = 1  # Maximum number of inlining passes (max 3)
+maxInlineInstructions = 100  # Maximum number of instructions to inline
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+
+# Virtualizer Config
+[transformerConfiguration.virtualizerConfig]
+enabled = true  # Enable bytecode virtualization
+runnerClassName = ""  # Custom name for the VM runner class
+vmProtect = true  # Use VMProtect to secure the native library
+vmProtectConPath = ""  # Path to VMProtect console executable
+exclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)
+inclusions = []  # Format:
+  # - com.example.MyClass (Class)
+  # - com.example.* (Package)
+  # - com.example.** (Package and sub-packages)

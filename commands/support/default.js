@@ -8,15 +8,15 @@ module.exports = {
     async execute(interaction, client) {
         const embed = new EmbedBuilder()
 
-        embed.setColor(0x210ecc)
+        embed.setColor(0x2a5aeb)
             .setTitle("QProtect Bot | Config")
             .setDescription("> Do not change the input or output settings, it will cause issues and will not obfuscate your file.")
 
-            .setFooter({ text: 'QProtect Bot by aSwitch', iconURL: `https://mdma.dev/data/assets/logo/Icon.png` })
-            .setThumbnail("https://mdma.dev/data/assets/logo/Icon.png")
+            .setFooter({ text: 'QProtect Bot by aSwitch', iconURL: `https://cdn.qtechnologies.dev/icons/56805c87-1695-47d7-af57-954d83b290c6.png` })
+            .setThumbnail("https://cdn.qtechnologies.dev/icons/56805c87-1695-47d7-af57-954d83b290c6.png")
             .setTimestamp()
 
-        await interaction.reply({ embeds: [embed], files: [`./config.yml`] })
+        await interaction.reply({ embeds: [embed], files: [`./config.toml`] })
     },
 }
 
